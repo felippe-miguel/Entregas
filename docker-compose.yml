@@ -1,0 +1,12 @@
+version: "3.5"
+
+services: 
+  app-service:
+    build: ./docker
+    container_name: app-container
+    working_dir: /var/www/html
+    volumes: 
+      - ./app:/var/www/html
+    ports: 
+      - "80:80"
+
