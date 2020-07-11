@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->date('birth_date');
             $table->string('cpf');
             $table->string('address');
-            $table->int('number');
+            $table->string('number');
             $table->string('complement')->nullable();
             $table->string('neighborhood');
             $table->string('city');
