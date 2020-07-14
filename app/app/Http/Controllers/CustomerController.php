@@ -57,6 +57,28 @@ class CustomerController extends Controller
 
     public function generateRoute()
     {
+        $customers = Customer::all();
 
+        if (count($customers) == 0) {
+            Session::flash('message','Sem clientes registrados para traçar rota.');
+            Session::flash('status','danger');
+
+            return redirect(route('home'));
+        }
+
+        $params = [];
+        $params['waypoints'] = ['optimize:true'];
+        $params['origin'] = env('DEFAULT_ORIGIN_ADDRESS');
+        $params['destination'] = env('DEFAULT_DESTINY_ADDRESS', env('DEFAULT_ORIGIN_ADDRESS'));
+        $params['language'] = 'pt-BR';
+
+        foreach ($customers as $key => $customer) {
+            array_push($params['waypoints'], 'place_id:'.$customer->place_id);
+        }
+
+        $response = \GoogleMaps::load('directions')->setParam($params)->get();
+        $route = json_decode($response)->routes[0];
+
+        return view('customers.route', compact('route'));
     }
 }
