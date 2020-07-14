@@ -21,7 +21,10 @@ class Customer extends Model
         'complement',
         'neighborhood',
         'city',
-        'cep'
+        'cep',
+        'lat',
+        'lng',
+        'place_id'
     ];
 
     public function getBirthDateAttribute($birth_date)

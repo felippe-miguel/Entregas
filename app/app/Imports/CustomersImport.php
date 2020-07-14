@@ -15,7 +15,8 @@ class CustomersImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-        $splitted_address = $this->splitAddress($row[4]);
+        $splitted_address = splitAddress($row[4]);
+        $google_maps_data = getGeocodingByAddress(implode(' ', $splitted_address));
         
         return new Customer([
           'name'          => $row[0],
@@ -27,30 +28,11 @@ class CustomersImport implements ToModel, WithStartRow
           'complement'    => $splitted_address['complement'],
           'neighborhood'  => $splitted_address['neighborhood'],
           'city'          => $splitted_address['city'],
-          'cep'           => $row[5]
+          'cep'           => $row[5],
+          'lat'           => $google_maps_data['lat'],
+          'lng'           => $google_maps_data['lng'],
+          'place_id'      => $google_maps_data['place_id']
         ]);
-    }
-
-    private function splitAddress($complete_address)
-    {
-        $exploded_address = explode( " - ", $complete_address );
-        $street = explode(",", $exploded_address[0])[0];
-        $neighborhood = $exploded_address[1];
-        $city = $exploded_address[2];
-        $number_and_complement = explode(" ", explode(",", $exploded_address[0])[1]);
-        $number = $number_and_complement[1];
-        $complement = implode(" ", array_slice($number_and_complement, 2));
-        $complement = ($complement != '') ? $complement : null;
-
-        $splitted_address = [
-            'street' => $street,
-            'number' => $number,
-            'complement' => $complement,
-            'neighborhood'  => $neighborhood,
-            'city' => $city
-        ];
-
-        return $splitted_address;
     }
 
     /**
