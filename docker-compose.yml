@@ -6,6 +6,7 @@ services:
     container_name: app-container
     working_dir: /var/www/html
     environment:
+      - GOOGLE_MAPS_API_KEY=AIzaSyCwXu513uY5hrlFopk4B7KgZOFhV-s_uUI
       - DB_HOST=db-service
       - DB_PORT=3306
       - DB_DATABASE=db
