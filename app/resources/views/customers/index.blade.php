@@ -2,7 +2,12 @@
 @section('title', 'Customers')
 
 @section('content')
-  <div class="container-fluid mt-5 table-responsive">
+  <div class="container mt-5">
+      <a href="{{ route('customers.clear') }}" class="btn btn-danger">Limpar base de clientes</a>
+      <a href="{{ route('customers.generate-route') }}" class="btn btn-success float-right">Gerar rota</a>
+      <a href="{{ route('customers.export') }}" class="btn btn-primary float-right mr-2">Exportar base de clientes</a>
+  </div>
+  <div class="container mt-5 table-responsive">
     <table class="table table-striped table-sm">
       <thead class="thead-light">
         <tr>
