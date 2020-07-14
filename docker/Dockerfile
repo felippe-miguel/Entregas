@@ -16,8 +16,11 @@ RUN chmod 755 /wait-for-it.sh
 RUN chmod 755 /migrate.sh
 RUN chmod 755 /permissions.sh
 
+RUN a2enmod rewrite
+
 WORKDIR /var/www/html
 
+#/permissions.sh  - Configura as permissões para rodar em ambiente linux
 #/clear-cache.sh  - Limpa e configura os caches
 #/wait-for-it.sh  - Testa e aguarda a conexão com o banco de dados antes de prosseguir
 #/migrate.sh      - Gera uma nova key para o app e executa as migrations
