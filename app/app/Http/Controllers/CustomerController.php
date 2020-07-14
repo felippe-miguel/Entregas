@@ -32,7 +32,7 @@ class CustomerController extends Controller
         return view('customers.show', compact('customer'));
     }
 
-    public function import() 
+    public function import()
     {
         Excel::import(new CustomersImport, request()->file('file'));
         Session::flash('message','Clientes importados com sucesso.');
@@ -43,11 +43,25 @@ class CustomerController extends Controller
 
     public function export()
     {
+        if ($this->databaseIsClear()) {
+            Session::flash('message','Nenhum cliente registrado na base de dados.');
+            Session::flash('status','warning');
+    
+            return redirect(route('home'));
+        }
+
         return Excel::download(new CustomersExport, 'clientes.csv');
     }
 
     public function clearCustomersFromDatabase()
     {
+        if ($this->databaseIsClear()) {
+            Session::flash('message','Base de clientes já está limpa.');
+            Session::flash('status','warning');
+
+            return redirect(route('home'));
+        }
+
         Customer::truncate();
         Session::flash('message','Base de clientes limpa com sucesso.');
         Session::flash('status','success');
@@ -61,7 +75,7 @@ class CustomerController extends Controller
 
         if (count($customers) == 0) {
             Session::flash('message','Sem clientes registrados para traçar rota.');
-            Session::flash('status','danger');
+            Session::flash('status','warning');
 
             return redirect(route('home'));
         }
@@ -80,5 +94,10 @@ class CustomerController extends Controller
         $route = json_decode($response)->routes[0];
 
         return view('customers.route', compact('route'));
+    }
+
+    private function databaseIsClear()
+    {
+        return (Customer::all()->count() == 0);
     }
 }
