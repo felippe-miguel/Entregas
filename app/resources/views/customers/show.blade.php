@@ -54,14 +54,6 @@
                 <td>{{ $customer->cep }}</td>
               </tr>
               <tr>
-                <th scope="row">Latitude</th>
-                <td>{{ $customer->lat }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Longitude</th>
-                <td>{{ $customer->lng }}</td>
-              </tr>
-              <tr>
                 <th scope="row">ID do endereço</th>
                 <td>{{ $customer->place_id }}</td>
               </tr>

@@ -25,6 +25,7 @@ class CreateCustomersTable extends Migration
             $table->string('neighborhood');
             $table->string('city');
             $table->string('cep');
+            $table->string('place_id');
             $table->timestamps();
         });
     }

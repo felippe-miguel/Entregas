@@ -22,8 +22,6 @@ class Customer extends Model
         'neighborhood',
         'city',
         'cep',
-        'lat',
-        'lng',
         'place_id'
     ];
 

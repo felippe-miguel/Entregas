@@ -16,7 +16,7 @@ class CustomersImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         $splitted_address = splitAddress($row[4]);
-        $google_maps_data = getGeocodingByAddress(implode(' ', $splitted_address));
+        $place_id = getGeocodingByAddress(implode(' ', $splitted_address));
         
         return new Customer([
           'name'          => $row[0],
@@ -29,9 +29,7 @@ class CustomersImport implements ToModel, WithStartRow
           'neighborhood'  => $splitted_address['neighborhood'],
           'city'          => $splitted_address['city'],
           'cep'           => $row[5],
-          'lat'           => $google_maps_data['lat'],
-          'lng'           => $google_maps_data['lng'],
-          'place_id'      => $google_maps_data['place_id']
+          'place_id'      => $place_id
         ]);
     }
 

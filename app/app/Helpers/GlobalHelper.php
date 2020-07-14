@@ -7,11 +7,7 @@ function getGeocodingByAddress($address) {
     
     $response = json_decode($response);
 
-    return [
-        "lat" => $response->results[0]->geometry->location->lat,
-        "lng" => $response->results[0]->geometry->location->lng,
-        "place_id" => $response->results[0]->place_id
-    ];
+    return $response->results[0]->place_id;
 }
 
 function splitAddress($complete_address) {
