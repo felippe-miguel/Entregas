@@ -30,3 +30,13 @@ function splitAddress($complete_address) {
 
     return $splitted_address;
 }
+
+function getDefalutParamsToGenerateRoutes() {
+    $params = [];
+    $params['waypoints'] = ['optimize:true'];
+    $params['origin'] = env('DEFAULT_ORIGIN_ADDRESS');
+    $params['destination'] = env('DEFAULT_DESTINY_ADDRESS', env('DEFAULT_ORIGIN_ADDRESS'));
+    $params['language'] = 'pt-BR';
+
+    return $params;
+}

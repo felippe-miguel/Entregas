@@ -80,11 +80,7 @@ class CustomerController extends Controller
             return redirect(route('home'));
         }
 
-        $params = [];
-        $params['waypoints'] = ['optimize:true'];
-        $params['origin'] = env('DEFAULT_ORIGIN_ADDRESS');
-        $params['destination'] = env('DEFAULT_DESTINY_ADDRESS', env('DEFAULT_ORIGIN_ADDRESS'));
-        $params['language'] = 'pt-BR';
+        $params = getDefalutParamsToGenerateRoutes();
 
         foreach ($customers as $key => $customer) {
             array_push($params['waypoints'], 'place_id:'.$customer->place_id);
