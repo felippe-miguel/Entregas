@@ -80,14 +80,10 @@ class CustomerController extends Controller
             return redirect(route('home'));
         }
 
-        $params = getDefalutParamsToGenerateRoutes();
-
-        foreach ($customers as $key => $customer) {
-            array_push($params['waypoints'], 'place_id:'.$customer->place_id);
-        }
-
-        $response = \GoogleMaps::load('directions')->setParam($params)->get();
-        $route = json_decode($response)->routes[0];
+        $params = $this->getDefalutParamsToGenerateRoutes();
+        $waypoints = $this->getWaypointsFromCustomers($customers);
+        $params['waypoints'] = array_merge($params['waypoints'], $waypoints);
+        $route = $this->getRoute($params);
 
         return view('customers.route', compact('route'));
     }
@@ -95,5 +91,35 @@ class CustomerController extends Controller
     private function databaseIsClear()
     {
         return (Customer::all()->count() == 0);
+    }
+
+    private function getDefalutParamsToGenerateRoutes()
+    {
+        $params = [];
+        $params['waypoints'] = ['optimize:true'];
+        $params['origin'] = env('DEFAULT_ORIGIN_ADDRESS');
+        $params['destination'] = env('DEFAULT_DESTINY_ADDRESS', env('DEFAULT_ORIGIN_ADDRESS'));
+        $params['language'] = 'pt-BR';
+    
+        return $params;
+    }
+
+    private function getRoute($params)
+    {
+        $response = \GoogleMaps::load('directions')->setParam($params)->get();
+        $route = json_decode($response)->routes[0];
+
+        return $route;
+    }
+
+    private function getWaypointsFromCustomers($customers)
+    {
+        $waypoints = [];
+
+        foreach ($customers as $key => $customer) {
+            array_push($waypoints, 'place_id:'.$customer->place_id);
+        }
+
+        return $waypoints;
     }
 }
