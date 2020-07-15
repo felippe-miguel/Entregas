@@ -6,6 +6,7 @@ services:
     container_name: app-container
     working_dir: /var/www/html
     environment:
+      - APP_ENV=local
       - DEFAULT_ORIGIN_ADDRESS=Avenida Dr. Gastão Vidigal, 1132 - Vila Leopoldina - 05314-010
       - DEFAULT_DESTINY_ADDRESS=Avenida Dr. Gastão Vidigal, 1132 - Vila Leopoldina - 05314-010
       - GOOGLE_MAPS_API_KEY=AIzaSyCwXu513uY5hrlFopk4B7KgZOFhV-s_uUI
