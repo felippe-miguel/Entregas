@@ -12,7 +12,7 @@ Aplicativo desenvolvido como teste para a Uello
   ```
 - **3:** Copie o conteúdo do arquivo .env.example para um novo arquivo .env.
 
-  **Observação:** Este passo é especialmente importante já que o container roda o comando `php artisan generate:key` logo após subir. Mesmo que você especifique uma chave nas variáveis de ambientes declaradas no docker-compose.yml, o sistema tentará gerar uma nova chave e salvá-la no arquivo .env.
+  **Observação:** Este passo é especialmente importante já que o container roda o comando `php artisan generate:key` logo após subir. Mesmo que você especifique uma chave nas variáveis de ambientes declaradas no docker-compose.yml, o sistema tentará gerar uma nova chave e salvar no arquivo .env.
   
   Caso esse arquivo não exista, o container não prosseguirá a sua inicialização corretamente.
 
@@ -21,11 +21,11 @@ Aplicativo desenvolvido como teste para a Uello
   composer install
   ```
 
-  **Observação:** O container não acompanha o composer instalado para evitar aumento do tamanho da imagem. Você pode utilizar o composer da sua própria máquina ou utilizar a partir de um container.
+  **Observação:** O container não acompanha o composer instalado para evitar aumento do tamanho da imagem. Você pode utilizar o composer da sua própria máquina ou utilizar a partir de um container exclusivo para instalação das dependências.
 
 - **5:** Altere as variáveis de ambiente declaradas no arquivo docker-compose.yml caso necessário.
 
-  Mantive uma chave da API do Google Maps que gerei mas estarei desabilitando e removendo a chave em breve, portanto, você pode gerar sua própria chave e inseri-la no arquivo `docker-compose.yml`.
+  Você deve gerar sua própria chave da API do Google Maps e inseri-la no arquivo `docker-compose.yml`.
   
   Você também pode alterar as variáveis `DEFAULT_ORIGIN_ADDRESS` e `DEFAULT_DESTINY_ADDRESS` caso queria calcular a rota com endereço inicial e final diferentes.
 
